@@ -1,0 +1,157 @@
+.heroBanner {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  min-height: initial;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner:not(.heroBanner--stacked) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .heroBanner {
+    min-height: 72rem;
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner--stacked {
+    height: auto;
+  }
+
+  .heroBanner--stacked .heroBanner__media {
+    flex-direction: column;
+  }
+}
+
+.heroBanner__media {
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  position: relative;
+}
+
+
+@media screen and (max-width: 749px) {
+  .heroBanner:not(.heroBanner--adapt):not(.heroBanner--stacked) > .heroBanner__media {
+    height: 39rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .heroBanner__media {
+    position: absolute;
+    height: 100%;
+  }
+}
+
+.heroBanner--adapt {
+  height: auto;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner--stacked:not(.heroBanner--adapt) .heroBanner__media {
+    height: 39rem;
+  }
+
+  .heroBanner::before {
+    display: none !important;
+  }
+
+  .heroBanner--stacked .heroBanner__media-image-half {
+    width: 100%;
+  }
+}
+
+.heroBanner__media .placeholder-svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.heroBanner__content {
+  padding: 0;
+  display: flex;
+  position: relative;
+  width: 100%;
+  justify-content: center;
+}
+
+@media screen and (min-width: 750px) {
+  .heroBanner__content {
+    padding-bottom: 5rem;
+    padding-top: 5rem;
+  }
+}
+
+.heroBanner__box {
+  border: 0;
+  padding: 4rem 3.5rem;
+  position: relative;
+  height: fit-content;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.heroBanner__box > * + .heroBanner__buttonWrapper {
+  margin: 0 auto;
+  margin-top: 2.3rem;
+  transform: translateX(1rem);
+}
+
+.heroBanner__content .button {
+  height: auto;
+  margin-right: 2rem;
+}
+
+.heroBanner__box > * + .heroBanner__text {
+  margin-top: 1.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .heroBanner__box > * + .heroBanner__text {
+    margin-top: 2rem;
+  }
+}
+
+.heroBanner__box > * + * {
+  margin-top: 1rem;
+}
+
+.heroBanner__box > *:first-child {
+  margin-top: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner__content .button {
+    flex-grow: 1;
+  }
+
+  .heroBanner--stacked .heroBanner__box {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .heroBanner__box {
+    padding: 4rem;
+    width: 54.8rem;
+  }
+
+  .heroBanner__box > .heroBanner__buttons:only-child .button {
+    margin-top: 0;
+  }
+}
+
+.heroBanner__text > * {
+  word-wrap: break-word;
+}
