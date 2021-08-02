@@ -358,32 +358,27 @@
           },
           "info": "To add images, [edit your collections](https://help.shopify.com/en/manual/products/collections)"
         },
-        "color_scheme": {
+        "button_bg_color": {
+          "label": "Button background color"
+        },
+        "button_border_color": {
+          "label": "Button border color"
+        },
+        "button_text_color": {
+          "label": "Button text color"
+        },
+        "title_position": {
+          "label": "Title position",
           "options__1": {
-            "label": "Accent 1"
+            "label": "Adapt to image"
           },
           "options__2": {
-            "label": "Accent 2"
+            "label": "Portrait"
           },
           "options__3": {
-            "label": "Background 1"
+            "label": "Square"
           },
-          "options__4": {
-            "label": "Background 2"
-          },
-          "options__5": {
-            "label": "Inverse"
-          },
-          "label": "Color scheme"
-        },
-        "swipe_on_mobile": {
-          "label": "Enable swipe on mobile"
-        },
-        "image_padding": {
-          "label": "Add image padding"
-        },
-        "show_view_all": {
-          "label": "Enable \"View all\" button if list includes more collections than shown"
+          "info": "To add images, [edit your collections](https://help.shopify.com/en/manual/products/collections)"
         }
       },
       "blocks": {
@@ -392,6 +387,9 @@
           "settings": {
             "collection": {
               "label": "Collection"
+            },
+            "title": {
+              "label": "Collection title"
             }
           }
         }
