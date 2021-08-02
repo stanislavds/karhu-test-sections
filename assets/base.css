@@ -190,14 +190,6 @@ html.no-js .no-js-hidden {
   margin-top: 5rem;
 }
 
-.spaced-section {
-  margin-top: 5rem;
-}
-
-.spaced-section:last-child {
-  margin-bottom: 5rem;
-}
-
 .spaced-section--full-width + .spaced-section--full-width {
   margin-top: 0;
 }

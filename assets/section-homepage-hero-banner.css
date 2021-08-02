@@ -1,0 +1,265 @@
+.heroBanner {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  min-height: initial;
+  margin-bottom: 6rem;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner {
+    margin-bottom: 1.6rem;
+  }
+}
+
+.heroBanner__media--desktopHidden {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner:not(.heroBanner--stacked) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .heroBanner {
+    min-height: 72rem;
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner--stacked {
+    height: auto;
+  }
+
+  .heroBanner--stacked .heroBanner__media {
+    flex-direction: column;
+  }
+
+  .heroBanner__media--mobileHidden {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .heroBanner__media--desktopHidden {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.heroBanner__media {
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  position: absolute;
+}
+
+
+@media screen and (max-width: 749px) {
+  .heroBanner:not(.heroBanner--adapt):not(.heroBanner--stacked) > .heroBanner__media {
+    height: 39rem;
+  }
+}
+
+.heroBanner--adapt {
+  height: auto;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner--stacked:not(.heroBanner--adapt) .heroBanner__media {
+    height: 39rem;
+  }
+
+  .heroBanner::before {
+    display: none !important;
+  }
+
+  .heroBanner--stacked .heroBanner__media-image-half {
+    width: 100%;
+  }
+}
+
+.heroBanner__media .placeholder-svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.heroBanner__content {
+  padding: 0;
+  display: flex;
+  position: relative;
+  width: 100%;
+  justify-content: center;
+}
+
+@media screen and (min-width: 750px) {
+  .heroBanner__content {
+    padding-bottom: 5rem;
+    padding-top: 5rem;
+  }
+}
+
+.heroBanner__box {
+  border: 0;
+  margin: 4rem 3.5rem;
+  position: relative;
+  height: fit-content;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.heroBanner__box--narrow {
+  max-width: 78.4rem;
+}
+
+.heroBanner__heading {
+  line-height: .86;
+  margin-bottom: 3.6rem;
+  font-family: 'GT America Bold';
+  letter-spacing: normal;
+}
+
+.heroBanner__heading--big {
+  font-size: 15rem;
+}
+
+.heroBanner__heading--medium {
+  font-size: 12.5rem;
+}
+
+.heroBanner__heading--small {
+  font-size: 10rem;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner__heading {
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .heroBanner__heading--big {
+    font-size: 6rem;
+  }
+
+  .heroBanner__heading--medium {
+    font-size: 4.5rem;
+  }
+
+  .heroBanner__heading--small {
+    font-size: 3rem;
+  }
+}
+
+.heroBanner__box > * + .heroBanner__buttonWrapper {
+  margin: 0 auto;
+  margin-bottom: 2.3rem;
+}
+
+.heroBanner__content .button {
+  height: auto;
+  padding-top: 1.2rem;
+  padding-bottom: 1.7rem;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  font-family: 'GT America Regular';
+  min-width: 24rem;
+  transition: .3s ease all;
+}
+
+.heroBanner__content .button:hover,
+.heroBanner__content .button:active,
+.heroBanner__content .button:focus {
+  opacity: .6;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner__content .button {
+    min-width: 18rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .heroBanner__content .button--full {
+    width: 100%;
+  }
+}
+
+.heroBanner__box > * + .heroBanner__text {
+  margin-top: 1.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .heroBanner__box > * + .heroBanner__text {
+    margin-top: 2rem;
+  }
+}
+
+.heroBanner__box > * + * {
+  margin-top: 1rem;
+}
+
+.heroBanner__box > *:first-child {
+  margin-top: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner__content .button {
+    flex-grow: 1;
+  }
+
+  .heroBanner--stacked .heroBanner__box {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .heroBanner__box {
+    margin: 4rem;
+  }
+
+  .heroBanner__box > .heroBanner__buttons:only-child .button {
+    margin-top: 0;
+  }
+}
+
+.heroBanner__text > * {
+  word-wrap: break-word;
+}
+
+.heroBanner__scrollButton:hover,
+.heroBanner__scrollButton:active,
+.heroBanner__scrollButton:focus {
+  opacity: .6;
+}
+
+.heroBanner__scrollButton {
+  background: transparent;
+  border: 0;
+  position: absolute;
+  cursor: pointer;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0;
+  transition: .3s ease all;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner__scrollButton {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
+}
