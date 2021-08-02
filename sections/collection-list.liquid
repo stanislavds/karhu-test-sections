@@ -1,6 +1,6 @@
 {{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
 
-{%- if section.settings.enable_slider and section.blocks.size > 3 -%}
+{%- if section.settings.enable_slider and section.blocks.size > 1 -%}
 <link rel="stylesheet" href="{{ 'homepage-component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
 
 <noscript>{{ 'homepage-component-slider.css' | asset_url | stylesheet_tag }}</noscript>
@@ -16,14 +16,14 @@
   }
 </style>
 
-<div class="collection-list-wrapper {% unless section.settings.enable_slider %}no-slider{% endunless %}">
+<div class="collection-list-wrapper {% unless section.settings.enable_slider and section.blocks.size < 1 %}no-slider{% endunless %}">
   <slider-component class="slider-mobile-gutter">
-    <ul class="collection-list grid grid--1-col{% if section.blocks.size < 5 %} grid--{{ section.blocks.size }}-col-tablet{% else %} grid--3-col-tablet{% endif %}{% if section.settings.enable_slider %} slider slider--tablet{% endif %} grid--peek collection-list--{{ section.blocks.size }}-items"
+    <ul class="collection-list grid grid--1-col{% if section.blocks.size < 5 %} grid--{{ section.blocks.size }}-col-tablet{% else %} grid--3-col-tablet{% endif %}{% if section.settings.enable_slider and section.blocks.size > 1 %} slider slider--tablet{% endif %} grid--peek collection-list--{{ section.blocks.size }}-items"
       id="Slider-{{ section.id }}"
       role="list"
     >
       {%- for block in section.blocks -%}
-        <li class="collection-list__item grid__item {% if section.settings.enable_slider %}slider__slide{% endif %}" {{ block.shopify_attributes }}>
+        <li class="collection-list__item grid__item {% if section.settings.enable_slider and section.blocks.size > 1 %}slider__slide{% endif %}" {{ block.shopify_attributes }}>
           <div class="card--stretch card-colored">
             {%- if block.settings.collection.featured_image != blank -%}
                 <div class="media media--hover-effect overflow-hidden">
@@ -56,7 +56,7 @@
                 </h3>
               </div>
             {%- else -%}
-              <div class="heroBanner__media media{% if section.settings.image == blank %} placeholder{% endif %}">
+              <div class="media{% if section.settings.image == blank %} placeholder{% endif %}">
                 {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
               </div>
               <div class="card__text card__text-spacing card__text-hover">
@@ -77,7 +77,7 @@
       {%- endfor -%}
     </ul>
 
-    {%- if section.settings.enable_slider -%}
+    {%- if section.settings.enable_slider and section.blocks.size > 3 -%}
       <div class="slider-buttons no-js-hidden">
         <div class="slider-counter caption">
           <span class="slider-counter--current">1</span>

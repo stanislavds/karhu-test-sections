@@ -95,10 +95,6 @@
 }
 
 @media screen and (min-width: 750px) {
-  .collection-list__item:only-child > *:not(.card--media) {
-    height: 320px;
-  }
-
   .collection-list__item:only-child .media {
     height: 47rem;
   }
@@ -135,6 +131,8 @@
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 0;
+  min-width: 80%;
+  text-align: center;
 }
 
 .collection-list__item .card__text h3 {
@@ -203,7 +201,7 @@
     padding: 0.8rem;
   }
 
-  .collection-list__item.grid__item {
+  .collection-list .collection-list__item.grid__item {
     width: 50%;
     max-width: 50%;
   }
@@ -221,4 +219,11 @@
 .collection-list__item .card--stretch .media img,
 .collection-list__item .card--stretch .media svg {
   position: relative;
+}
+
+@media screen and (max-width: 749px) {
+  .collection-list__item .card--stretch .media img,
+  .collection-list__item .card--stretch .media svg {
+    min-height: 35rem;
+  }
 }
