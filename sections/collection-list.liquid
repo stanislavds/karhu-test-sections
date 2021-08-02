@@ -1,7 +1,10 @@
 {{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
+
+{%- if section.settings.enable_slider and section.blocks.size > 3 -%}
 <link rel="stylesheet" href="{{ 'homepage-component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
 
 <noscript>{{ 'homepage-component-slider.css' | asset_url | stylesheet_tag }}</noscript>
+{%- endif -%}
 
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 
@@ -13,20 +16,17 @@
   }
 </style>
 
-<div class="collection-list-wrapper">
+<div class="collection-list-wrapper {% unless section.settings.enable_slider %}no-slider{% endunless %}">
   <slider-component class="slider-mobile-gutter">
-    <ul class="collection-list grid grid--1-col{% if section.blocks.size < 5 %} grid--{{ section.blocks.size }}-col-tablet{% else %} grid--3-col-tablet{% endif %} slider slider--tablet grid--peek collection-list--{{ section.blocks.size }}-items"
+    <ul class="collection-list grid grid--1-col{% if section.blocks.size < 5 %} grid--{{ section.blocks.size }}-col-tablet{% else %} grid--3-col-tablet{% endif %}{% if section.settings.enable_slider %} slider slider--tablet{% endif %} grid--peek collection-list--{{ section.blocks.size }}-items"
       id="Slider-{{ section.id }}"
       role="list"
     >
       {%- for block in section.blocks -%}
-        <li class="collection-list__item grid__item slider__slide" {{ block.shopify_attributes }}>
+        <li class="collection-list__item grid__item {% if section.settings.enable_slider %}slider__slide{% endif %}" {{ block.shopify_attributes }}>
           <div class="card--stretch card-colored">
             {%- if block.settings.collection.featured_image != blank -%}
-              <div>
-                <div class="media{% if section.blocks.size > 1 %} media--{{ section.settings.image_ratio }}{% endif %} media--hover-effect overflow-hidden"
-                  {% if section.settings.image_ratio == 'adapt' and section.blocks.size > 1 %}style="padding-bottom: {{ 1 | divided_by: block.settings.collection.featured_image.aspect_ratio | times: 100 }}%;"{% endif %}>
-
+                <div class="media media--hover-effect overflow-hidden">
                   <img srcset="{%- if block.settings.collection.featured_image.width >= 165 -%}{{ block.settings.collection.featured_image | img_url: '165x' }} 165w,{%- endif -%}
                     {%- if block.settings.collection.featured_image.width >= 330 -%}{{ block.settings.collection.featured_image | img_url: '330x' }} 330w,{%- endif -%}
                     {%- if block.settings.collection.featured_image.width >= 535 -%}{{ block.settings.collection.featured_image | img_url: '535x' }} 535w,{%- endif -%}
@@ -42,7 +42,6 @@
                     loading="lazy"
                     class="motion-reduce"
                   >
-                </div>
               </div>
 
               <div class="card__text card__text-spacing card-colored card__text-hover">
@@ -57,7 +56,10 @@
                 </h3>
               </div>
             {%- else -%}
-              <div class="card__text-spacing card__text-hover">
+              <div class="heroBanner__media media{% if section.settings.image == blank %} placeholder{% endif %}">
+                {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <div class="card__text card__text-spacing card__text-hover">
                 <h3 class="h1" style="color: {{ section.settings.title_color }}">
                   {%- if block.settings.title != blank -%}
                     {{- block.settings.title | escape -}}
@@ -75,16 +77,18 @@
       {%- endfor -%}
     </ul>
 
-    <div class="slider-buttons no-js-hidden{% if section.blocks.size < 5 %} medium-hide{% endif %}{% if section.blocks.size < 2 %} small-hide{% endif %}">
-      <div class="slider-counter caption">
-        <span class="slider-counter--current">1</span>
-          <span aria-hidden="true"> / </span>
-          <span class="visually-hidden">{{ 'accessibility.of' | t }}</span>
-        <span class="slider-counter--total">{{ section.blocks.size }}</span>
+    {%- if section.settings.enable_slider -%}
+      <div class="slider-buttons no-js-hidden">
+        <div class="slider-counter caption">
+          <span class="slider-counter--current">1</span>
+            <span aria-hidden="true"> / </span>
+            <span class="visually-hidden">{{ 'accessibility.of' | t }}</span>
+          <span class="slider-counter--total">{{ section.blocks.size }}</span>
+        </div>
+        <button type="button" class="slider-button slider-button--prev" name="previous" aria-label="{{ 'accessibility.previous_slide' | t }}">{% render 'svg-files', name: 'rounded-arrow' %}</button>
+        <button type="button" class="slider-button slider-button--next" name="next" aria-label="{{ 'accessibility.next_slide' | t }}">{% render 'svg-files', name: 'rounded-arrow' %}</button>
       </div>
-      <button type="button" class="slider-button slider-button--prev" name="previous" aria-label="{{ 'accessibility.previous_slide' | t }}">{% render 'svg-files', name: 'rounded-arrow' %}</button>
-      <button type="button" class="slider-button slider-button--next" name="next" aria-label="{{ 'accessibility.next_slide' | t }}">{% render 'svg-files', name: 'rounded-arrow' %}</button>
-    </div>
+    {%- endif -%}
   </slider-component>
 </div>
 
@@ -96,30 +100,15 @@
   "max_blocks": 12,
   "settings": [
     {
-      "type": "select",
-      "id": "image_ratio",
-      "options": [
-        {
-          "value": "adapt",
-          "label": "t:sections.collection-list.settings.image_ratio.options__1.label"
-        },
-        {
-          "value": "portrait",
-          "label": "t:sections.collection-list.settings.image_ratio.options__2.label"
-        },
-        {
-          "value": "square",
-          "label": "t:sections.collection-list.settings.image_ratio.options__3.label"
-        }
-      ],
-      "default": "square",
-      "label": "t:sections.collection-list.settings.image_ratio.label",
-      "info": "t:sections.collection-list.settings.image_ratio.info"
+      "type": "checkbox",
+      "id": "enable_slider",
+      "label": "t:sections.collection-list.settings.enable_slider.label",
+      "default": true
     },
     {
       "type": "color",
       "id": "title_color",
-      "label": "t:sections.collection-list.settings.image_ratio.info",
+      "label": "t:sections.collection-list.settings.title.color",
       "default": "#fff"
     },
     {
@@ -138,26 +127,6 @@
       "id": "button_text_color",
       "label": "t:sections.collection-list.settings.button_text_color.label",
       "default": "#fff"
-    },
-    {
-      "type": "select",
-      "id": "title_position",
-      "options": [
-        {
-          "value": "top",
-          "label": "t:sections.collection-list.settings.image_ratio.options__1.label"
-        },
-        {
-          "value": "center",
-          "label": "t:sections.collection-list.settings.image_ratio.options__2.label"
-        },
-        {
-          "value": "bottom",
-          "label": "t:sections.collection-list.settings.image_ratio.options__3.label"
-        }
-      ],
-      "default": "center",
-      "label": "t:sections.collection-list.settings.image_ratio.label"
     }
   ],
   "blocks": [

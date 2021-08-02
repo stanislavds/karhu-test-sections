@@ -79,7 +79,6 @@ slider-component .slider {
 }
 
 .slider-mobile-gutter .slider-buttons {
-  right: 1.5rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -94,6 +93,12 @@ slider-component .slider {
 .slider-buttons {
   display: flex;
   align-items: center;
+}
+
+@media screen and (max-width: 749px) {
+  .slider-buttons {
+    display: none;
+  }
 }
 
 .slider-button {
@@ -137,10 +142,12 @@ slider-component .slider {
 
 .slider-button--prev {
   transform: rotate(90deg);
+  margin-left: 3rem;
 }
 
 .slider-button--next {
   transform: rotate(270deg);
+  margin-right: 3rem;
 }
 
 .slider-button--prev:disabled,

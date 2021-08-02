@@ -343,7 +343,11 @@
       "name": "Collection list",
       "settings": {
         "title": {
-          "label": "Heading"
+          "label": "Heading",
+          "color": "Title color"
+        },
+        "enable_slider": {
+          "label": "Enable slider"
         },
         "image_ratio": {
           "label": "Image ratio",
