@@ -3,6 +3,19 @@
   position: relative;
   flex-direction: column;
   min-height: initial;
+  margin-bottom: 6rem;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner {
+    margin-bottom: 1.6rem;
+  }
+}
+
+.heroBanner__media--desktopHidden {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
 }
 
 @media screen and (max-width: 749px) {
@@ -26,6 +39,18 @@
 
   .heroBanner--stacked .heroBanner__media {
     flex-direction: column;
+  }
+
+  .heroBanner__media--mobileHidden {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .heroBanner__media--desktopHidden {
+    display: block;
+    visibility: visible;
+    opacity: 1;
   }
 }
 
@@ -118,6 +143,25 @@
   font-size: 10rem;
 }
 
+@media screen and (max-width: 749px) {
+  .heroBanner__heading {
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .heroBanner__heading--big {
+    font-size: 6rem;
+  }
+
+  .heroBanner__heading--medium {
+    font-size: 4.5rem;
+  }
+
+  .heroBanner__heading--small {
+    font-size: 3rem;
+  }
+}
+
 .heroBanner__box > * + .heroBanner__buttonWrapper {
   margin: 0 auto;
   margin-bottom: 2.3rem;
@@ -138,6 +182,18 @@
 .heroBanner__content .button:active,
 .heroBanner__content .button:focus {
   opacity: .6;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner__content .button {
+    min-width: 18rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .heroBanner__content .button--full {
+    width: 100%;
+  }
 }
 
 .heroBanner__box > * + .heroBanner__text {
@@ -198,4 +254,12 @@
   transform: translateX(-50%);
   padding: 0;
   transition: .3s ease all;
+}
+
+@media screen and (max-width: 749px) {
+  .heroBanner__scrollButton {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
 }

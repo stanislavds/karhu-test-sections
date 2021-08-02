@@ -720,6 +720,9 @@
         "image": {
           "label": "Background image"
         },
+        "mobile_image": {
+          "label": "Mobile background image"
+        },
         "desktop_text_box_position": {
           "options__1": {
             "label": "Top"
@@ -730,7 +733,7 @@
           "options__3": {
             "label": "Bottom"
           },
-          "label": "Desktop text position"
+          "label": "Text position"
         },
         "box_size": {
           "options__1": {
@@ -790,6 +793,15 @@
             },
             "button_text_color": {
               "label": "Button text color"
+            },
+            "mobile_button_style": {
+              "options__1": {
+                "label": "Full width"
+              },
+              "options__2": {
+                "label": "Fit-content"
+              },
+              "label": "Mobile button size"
             }
           }
         }

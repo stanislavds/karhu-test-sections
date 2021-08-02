@@ -6,10 +6,23 @@
 
 {%- if section.settings.adapt_height_first_image and section.settings.image != blank -%}
   {%- style -%}
+    {%- if section.settings.mobile_image != blank -%}@media screen and (min-width: 750px){ {%- endif -%}
     #heroBanner-{{ section.id }}::before, #heroBanner-{{ section.id }} .heroBanner__media::before {
       padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
       content: '';
       display: block;
+    } {%- if section.settings.mobile_image != blank -%}}{%- endif -%}
+  {%- endstyle -%}
+{%- endif -%}
+
+{%- if section.settings.adapt_height_first_image and section.settings.mobile_image != blank -%}
+  {%- style -%}
+    @media screen and (max-width: 749px) {
+      #heroBanner-{{ section.id }} .heroBanner__content::before {
+        padding-bottom: {{ 1 | divided_by: section.settings.mobile_image.aspect_ratio | times: 100 }}%;
+        content: '';
+        display: block;
+      }
     }
   {%- endstyle -%}
 {%- endif -%}
@@ -30,7 +43,25 @@
         alt="{{ section.settings.image.alt | escape }}"
         width="{{ section.settings.image.width }}"
         height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio }}"
+        {%- if section.settings.mobile_image != blank -%}class="heroBanner__media--mobileHidden"{%- endif -%}
       >
+      {%- if section.settings.mobile_image != blank -%}
+        <img srcset="{%- if section.settings.mobile_image.width >= 375 -%}{{ section.settings.mobile_image | img_url: '375x' }} 375w,{%- endif -%}
+          {%- if section.settings.mobile_image.width >= 750 -%}{{ section.settings.mobile_image | img_url: '750x' }} 750w,{%- endif -%}
+          {%- if section.settings.mobile_image.width >= 1100 -%}{{ section.settings.mobile_image | img_url: '1100x' }} 1100w,{%- endif -%}
+          {%- if section.settings.mobile_image.width >= 1500 -%}{{ section.settings.mobile_image | img_url: '1500x' }} 1500w,{%- endif -%}
+          {%- if section.settings.mobile_image.width >= 1780 -%}{{ section.settings.mobile_image | img_url: '1780x' }} 1780w,{%- endif -%}
+          {%- if section.settings.mobile_image.width >= 2000 -%}{{ section.settings.mobile_image | img_url: '2000x' }} 2000w,{%- endif -%}
+          {%- if section.settings.mobile_image.width >= 2800 -%}{{ section.settings.mobile_image | img_url: '2800x' }} 2800w{%- endif -%}"
+          sizes="100vw"
+          src="{{ section.settings.mobile_image | img_url: '750x' }}"
+          loading="lazy"
+          alt="{{ section.settings.mobile_image.alt | escape }}"
+          width="{{ section.settings.mobile_image.width }}"
+          height="{{ section.settings.mobile_image.width | divided_by: section.settings.mobile_image.aspect_ratio }}"
+          class="heroBanner__media--desktopHidden"
+        >
+      {%- endif -%}
     </div>
   {%- else -%}
     <div class="heroBanner__media media{% if section.settings.image == blank %} placeholder{% endif %}">
@@ -55,7 +86,7 @@
             </style>
             <div class="heroBanner__buttonWrapper" {{ block.shopify_attributes }}>
               {%- if block.settings.button_label != blank -%}
-                <a{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% endif %} class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"{% if block.settings.button_link == blank %} aria-disabled="true"{% endif %}>{{ block.settings.button_label | escape }}</a>
+                <a{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% endif %} class="button button--primary button--{{ block.settings.mobile_button_style }}"{% if block.settings.button_link == blank %} aria-disabled="true"{% endif %}>{{ block.settings.button_label | escape }}</a>
               {%- endif -%}
             </div>
         {%- endcase -%}
@@ -87,6 +118,11 @@
     {
       "type": "image_picker",
       "id": "image",
+      "label": "t:sections.hero-banner.settings.image.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
       "label": "t:sections.hero-banner.settings.image.label"
     },
     {
@@ -211,6 +247,22 @@
           "id": "button_text_color",
           "label": "t:sections.hero-banner.blocks.buttons.settings.button_text_color.label",
           "default": "#fff"
+        },
+        {
+          "type": "select",
+          "id": "mobile_button_style",
+          "options": [
+            {
+              "value": "full",
+              "label": "t:sections.hero-banner.blocks.buttons.settings.mobile_button_style.options__1.label"
+            },
+            {
+              "value": "fitContent",
+              "label": "t:sections.hero-banner.blocks.buttons.settings.mobile_button_style.options__2.label"
+            }
+          ],
+          "default": "fitContent",
+          "label": "t:sections.hero-banner.blocks.buttons.settings.mobile_button_style.label"
         }
       ]
     }
