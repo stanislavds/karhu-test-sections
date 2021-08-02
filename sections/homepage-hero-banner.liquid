@@ -1,5 +1,9 @@
 {{ 'section-homepage-hero-banner.css' | asset_url | stylesheet_tag }}
 
+{%- if section.settings.enable_scroll_icon -%}
+  <script src="{{ 'hero-banner.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
 {%- if section.settings.adapt_height_first_image and section.settings.image != blank -%}
   {%- style -%}
     #heroBanner-{{ section.id }}::before, #heroBanner-{{ section.id }} .heroBanner__media::before {
@@ -29,40 +33,61 @@
       >
     </div>
   {%- else -%}
-    <div class="heroBanner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} heroBanner__media-half{% endif %}">
+    <div class="heroBanner__media media{% if section.settings.image == blank %} placeholder{% endif %}">
       {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
     </div>
   {%- endif -%}
   <div class="heroBanner__content page-width" style="align-items: {{ section.settings.desktop_text_box_position }};">
-    <div class="heroBanner__box color-{{ section.settings.color_scheme }}">
+    <div class="heroBanner__box heroBanner__box--{{ section.settings.box_size }}">
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'heading' -%}
-            <h2 class="heroBanner__heading h1" {{ block.shopify_attributes }}>
+            <h2 style="color: {{ block.settings.heading_color }}" class="heroBanner__heading heroBanner__heading--{{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
               <span>{{ block.settings.heading | escape }}</span>
             </h2>
-          {%- when 'buttons' -%}
+          {%- when 'button' -%}
+            <style>
+              .heroBanner__buttonWrapper .button {
+                border: 1px solid {{ block.settings.button_border_color }};
+                color: {{ block.settings.button_text_color }};
+                background-color: {% if block.settings.button_bg_color != blank %}{{ block.settings.button_bg_color }}{% else %}transparent{% endif %};
+              }
+            </style>
             <div class="heroBanner__buttonWrapper" {{ block.shopify_attributes }}>
-              {%- if block.settings.button_label_1 != blank -%}
-                <a{% if block.settings.button_link_1 != blank %} href="{{ block.settings.button_link_1 }}"{% endif %} class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"{% if block.settings.button_link_1 == blank %} aria-disabled="true"{% endif %}>{{ block.settings.button_label_1 | escape }}</a>
+              {%- if block.settings.button_label != blank -%}
+                <a{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% endif %} class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"{% if block.settings.button_link == blank %} aria-disabled="true"{% endif %}>{{ block.settings.button_label | escape }}</a>
               {%- endif -%}
             </div>
         {%- endcase -%}
       {%- endfor -%}
     </div>
+
+    {%- if section.settings.enable_scroll_icon -%}
+      <button type="button" class="heroBanner__scrollButton">
+        {% render 'svg-files', name: 'rounded-arrow' %}
+      </button>
+    {%- endif -%}
   </div>
 </div>
 
+{% if section.settings.enable_scroll_icon %}
+  <script>
+    window.onload = () => {
+      typeof ScrollToSection !== 'undefined' && new ScrollToSection();
+    }
+  </script>
+{% endif %}
+
 {% schema %}
 {
-  "name": "t:sections.hero-heroBanner.name",
+  "name": "t:sections.hero-banner.name",
   "tag": "section",
   "class": "spaced-section spaced-section--full-width",
   "settings": [
     {
       "type": "image_picker",
       "id": "image",
-      "label": "t:sections.hero-heroBanner.settings.image.label"
+      "label": "t:sections.hero-banner.settings.image.label"
     },
     {
       "type": "select",
@@ -70,104 +95,129 @@
       "options": [
         {
           "value": "flex-start",
-          "label": "t:sections.hero-heroBanner.settings.desktop_text_box_position.options__1.label"
+          "label": "t:sections.hero-banner.settings.desktop_text_box_position.options__1.label"
         },
         {
           "value": "center",
-          "label": "t:sections.hero-heroBanner.settings.desktop_text_box_position.options__2.label"
+          "label": "t:sections.hero-banner.settings.desktop_text_box_position.options__2.label"
         },
         {
           "value": "flex-end",
-          "label": "t:sections.hero-heroBanner.settings.desktop_text_box_position.options__3.label"
+          "label": "t:sections.hero-banner.settings.desktop_text_box_position.options__3.label"
         }
       ],
       "default": "center",
-      "label": "t:sections.hero-heroBanner.settings.desktop_text_box_position.label"
+      "label": "t:sections.hero-banner.settings.desktop_text_box_position.label"
     },
     {
       "type": "select",
-      "id": "color_scheme",
+      "id": "box_size",
       "options": [
         {
-          "value": "accent-1",
-          "label": "t:sections.hero-heroBanner.settings.color_scheme.options__1.label"
+          "value": "wide",
+          "label": "t:sections.hero-banner.settings.box_size.options__1.label"
         },
         {
-          "value": "accent-2",
-          "label": "t:sections.hero-heroBanner.settings.color_scheme.options__2.label"
-        },
-        {
-          "value": "background-1",
-          "label": "t:sections.hero-heroBanner.settings.color_scheme.options__3.label"
-        },
-        {
-          "value": "background-2",
-          "label": "t:sections.hero-heroBanner.settings.color_scheme.options__4.label"
-        },
-        {
-          "value": "inverse",
-          "label": "t:sections.hero-heroBanner.settings.color_scheme.options__5.label"
+          "value": "narrow",
+          "label": "t:sections.hero-banner.settings.box_size.options__2.label"
         }
       ],
-      "default": "background-1",
-      "label": "t:sections.hero-heroBanner.settings.color_scheme.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "stack_images_on_mobile",
-      "default": true,
-      "label": "t:sections.hero-heroBanner.settings.stack_images_on_mobile.label"
+      "default": "narrow",
+      "label": "t:sections.hero-banner.settings.box_size.label"
     },
     {
       "type": "checkbox",
       "id": "adapt_height_first_image",
       "default": false,
-      "label": "t:sections.hero-heroBanner.settings.adapt_height_first_image.label"
+      "label": "t:sections.hero-banner.settings.adapt_height_first_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_scroll_icon",
+      "default": true,
+      "label": "t:sections.hero-banner.settings.enable_scroll_icon.label"
     }
   ],
   "blocks": [
     {
       "type": "heading",
-      "name": "t:sections.hero-heroBanner.blocks.heading.name",
+      "name": "t:sections.hero-banner.blocks.heading.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "heading",
-          "default": "Image heroBanner",
-          "label": "t:sections.hero-heroBanner.blocks.heading.settings.heading.label"
+          "default": "Hero banner",
+          "label": "t:sections.hero-banner.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "big",
+              "label": "t:sections.hero-banner.blocks.heading_size.options__1.label"
+            },
+            {
+              "value": "medium",
+              "label": "t:sections.hero-banner.blocks.heading_size.options__2.label"
+            },
+            {
+              "value": "small",
+              "label": "t:sections.hero-banner.blocks.heading_size.options__3.label"
+            }
+          ],
+          "default": "big",
+          "label": "t:sections.hero-banner.blocks.heading_size.label"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "t:sections.hero-banner.blocks.heading_color.label",
+          "default": "#FFFFFF"
         }
       ]
     },
     {
       "type": "button",
-      "name": "t:sections.hero-heroBanner.blocks.buttons.name",
+      "name": "t:sections.hero-banner.blocks.buttons.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
-          "id": "button_label_1",
+          "id": "button_label",
           "default": "Button label",
-          "label": "t:sections.hero-heroBanner.blocks.buttons.settings.button_label_1.label",
-          "info": "t:sections.hero-heroBanner.blocks.buttons.settings.button_label_1.info"
+          "label": "t:sections.hero-banner.blocks.buttons.settings.button_label.label",
+          "info": "t:sections.hero-banner.blocks.buttons.settings.button_label.info"
         },
         {
           "type": "url",
-          "id": "button_link_1",
-          "label": "t:sections.hero-heroBanner.blocks.buttons.settings.button_link_1.label"
+          "id": "button_link",
+          "label": "t:sections.hero-banner.blocks.buttons.settings.button_link.label"
         },
         {
-          "type": "checkbox",
-          "id": "button_style_secondary_1",
-          "default": false,
-          "label": "t:sections.hero-heroBanner.blocks.buttons.settings.button_style_secondary_1.label"
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "t:sections.hero-banner.blocks.buttons.settings.button_bg_color.label"
+        },
+        {
+          "type": "color",
+          "id": "button_border_color",
+          "label": "t:sections.hero-banner.blocks.buttons.settings.button_border_color.label",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "t:sections.hero-banner.blocks.buttons.settings.button_text_color.label",
+          "default": "#fff"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "t:sections.hero-heroBanner.presets.name",
+      "name": "t:sections.hero-banner.presets.name",
       "blocks": [
         {
           "type": "heading"

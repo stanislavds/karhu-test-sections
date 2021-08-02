@@ -714,6 +714,90 @@
         "name": "Image banner"
       }
     },
+    "hero-banner": {
+      "name": "Hero banner",
+      "settings": {
+        "image": {
+          "label": "Background image"
+        },
+        "desktop_text_box_position": {
+          "options__1": {
+            "label": "Top"
+          },
+          "options__2": {
+            "label": "Center"
+          },
+          "options__3": {
+            "label": "Bottom"
+          },
+          "label": "Desktop text position"
+        },
+        "box_size": {
+          "options__1": {
+            "label": "Wide"
+          },
+          "options__2": {
+            "label": "Narrow"
+          },
+          "label": "Content box size"
+        },
+        "adapt_height_first_image": {
+          "label": "Adapt section height to first image size"
+        },
+        "enable_scroll_icon": {
+          "label": "Enable scroll icon"
+        }
+      },
+      "blocks": {
+        "heading": {
+          "name": "Heading",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            }
+          }
+        },
+        "heading_size": {
+          "options__1": {
+            "label": "Big"
+          },
+          "options__2": {
+            "label": "Middle"
+          },
+          "options__3": {
+            "label": "Small"
+          },
+          "label": "Heading font size"
+        },
+        "heading_color": {
+          "label": "Heading color"
+        },
+        "buttons": {
+          "name": "Button",
+          "settings": {
+            "button_label": {
+              "label": "Button label",
+              "info": "Leave the label blank to hide the button."
+            },
+            "button_link": {
+              "label": "Button link"
+            },
+            "button_bg_color": {
+              "label": "Button background color"
+            },
+            "button_border_color": {
+              "label": "Button border color"
+            },
+            "button_text_color": {
+              "label": "Button text color"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Hero banner"
+      }
+    },
     "image-with-text": {
       "name": "Image with text",
       "settings": {
