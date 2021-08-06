@@ -6,19 +6,19 @@
         "1627920842ee39206d-0": {
           "type": "heading",
           "settings": {
-            "heading": "Hero banner",
+            "heading": "KARHU SUMMER CAMP",
             "heading_size": "big",
-            "heading_color": "#FFFFFF"
+            "heading_color": "#ffffff"
           }
         },
         "1627920842ee39206d-1": {
           "type": "button",
           "settings": {
-            "button_label": "Button label",
-            "button_link": "",
+            "button_label": "Shop Collection",
+            "button_link": "shopify:\/\/collections",
             "button_bg_color": "",
-            "button_border_color": "#fff",
-            "button_text_color": "#fff",
+            "button_border_color": "#ffffff",
+            "button_text_color": "#ffffff",
             "mobile_button_style": "fitContent"
           }
         }
@@ -42,21 +42,28 @@
         "1627920853a4e92dcf-0": {
           "type": "featured_collection",
           "settings": {
-            "collection": "",
+            "collection": "frontpage",
             "title": ""
           }
         },
         "1627920853a4e92dcf-1": {
           "type": "featured_collection",
           "settings": {
-            "collection": "",
+            "collection": "women",
             "title": ""
           }
         },
         "1627920853a4e92dcf-2": {
           "type": "featured_collection",
           "settings": {
-            "collection": "",
+            "collection": "kids",
+            "title": ""
+          }
+        },
+        "725efa1a-7ce7-49bd-afa5-15e79af8d85e": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "frontpage",
             "title": ""
           }
         }
@@ -64,14 +71,15 @@
       "block_order": [
         "1627920853a4e92dcf-0",
         "1627920853a4e92dcf-1",
-        "1627920853a4e92dcf-2"
+        "1627920853a4e92dcf-2",
+        "725efa1a-7ce7-49bd-afa5-15e79af8d85e"
       ],
       "settings": {
-        "enable_slider": true,
-        "title_color": "#fff",
+        "enable_slider": false,
+        "title_color": "#ffffff",
         "button_bg_color": "",
-        "button_border_color": "#fff",
-        "button_text_color": "#fff"
+        "button_border_color": "#ffffff",
+        "button_text_color": "#ffffff"
       }
     }
   },
