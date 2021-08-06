@@ -201,9 +201,9 @@
     padding: 0.8rem;
   }
 
-  .collection-list .collection-list__item.grid__item {
-    width: 50%;
-    max-width: 50%;
+  .collection-list-wrapper .collection-list .collection-list__item.grid__item {
+    width: 100%;
+    max-width: unset;
   }
 
   .collection-list__item.grid__item.slider__slide {
