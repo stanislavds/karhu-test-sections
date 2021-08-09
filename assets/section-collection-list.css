@@ -206,7 +206,7 @@
     max-width: unset;
   }
 
-  .collection-list__item.grid__item.slider__slide {
+  .collection-list-wrapper .collection-list .collection-list__item.grid__item.slider__slide {
     width: 69.65%;
     max-width: unset;
   }
