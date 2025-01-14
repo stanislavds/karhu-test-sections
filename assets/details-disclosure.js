@@ -5,6 +5,8 @@ class DetailsDisclosure extends HTMLElement {
 
     this.addEventListener('keyup', this.onKeyUp);
     this.mainDetailsToggle.addEventListener('focusout', this.onFocusOut.bind(this));
+
+    var test = '';
   }
 
   onKeyUp(event) {
