@@ -2085,3 +2085,7 @@ details-disclosure > details {
     overflow: auto;
   }
 }
+
+h2 {
+  color: red !important;
+      }
